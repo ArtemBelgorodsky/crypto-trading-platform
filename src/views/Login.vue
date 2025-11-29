@@ -62,10 +62,7 @@ const form = reactive({
 })
 
 const handleLogin = () => {
-  // Простая проверка для демонстрации
-  if (form.email === 'trader@crypto.com' && form.password === 'securepass123') {
-    // В реальном приложении здесь была бы аутентификация
-    authStore.login()
+  if (authStore.login(form.email, form.password)) {
     router.push('/')
   } else {
     alert('Неверные данные для входа')

@@ -6,6 +6,7 @@ import Shifts from '../views/Shifts.vue';
 import Analytics from '../views/Analytics.vue';
 import History from '../views/History.vue';
 import Login from '../views/Login.vue';
+import { useAuthStore } from '../stores/auth';
 
 const routes = [
   {
@@ -48,6 +49,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if (to.path !== '/login' && !authStore.isAuthenticated) {
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -36,7 +36,7 @@
       <div class="mb-8">
         <h2 class="text-xs font-bold text-neutral-400 uppercase tracking-wide mb-4">Отчеты</h2>
         <nav class="space-y-2">
-          <RouterLink
+          <RouterLink 
             v-for="item in reportsMenu"
             :key="item.path"
             :to="item.path"
@@ -49,10 +49,10 @@
         </nav>
       </div>
 
-      <div class="border-t border-neutral-700 pt-4">
+      <div class="mt-auto p-6">
         <button
-          @click="handleLogout"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-neutral-300 hover:bg-red-600 hover:text-white transition-smooth w-full text-left"
+          @click="logout"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-neutral-300 hover:bg-neutral-700 transition-smooth w-full"
         >
           <LogOut class="w-5 h-5" />
           <span class="text-sm font-medium">Выход</span>
@@ -81,6 +81,11 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 
+const logout = () => {
+  authStore.logout()
+  router.push('/login')
+}
+
 const mainMenu = [
   { path: '/', label: 'Дашборд', icon: Home },
 ]
@@ -97,9 +102,4 @@ const reportsMenu = [
 ]
 
 const isActive = (path) => route.path === path
-
-const handleLogout = () => {
-  authStore.logout()
-  router.push('/login')
-}
 </script>
